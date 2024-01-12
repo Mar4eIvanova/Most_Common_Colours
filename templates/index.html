@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MostCommonColors</title>
+    <style>
+         .social-media{
+         background:#00FFFF
+         }
+           body{
+    background-color:#E0FFFF
+    }
+    .color-list{
+    {% for color in u_col[::-1]: %}
+        rgb({{ color }})
+        {% endfor %}
+    }
+
+    </style>
+</head>
+
+
+
+
+<body>
+<div class="social-media">
+    <h2 align="center">Image Color Extract</h2>
+    <h3 align="center">10 Most Common Colors in The Picture</h3>
+    <p align="center">Created by:<a href="https://github.com/Mar4eIvanova?tab=repositories"> Mariya Ivanova</a></p>
+</div>
+
+
+{% from 'bootstrap5/form.html' import render_form %}
+<form method="post" enctype="multipart/form-data">
+{{ form.hidden_tag() }}
+{% for error in form.photo.errors %}
+    <span style="color: red;">{{ error }}</span>
+{% endfor %}
+<div class="row justify-content-center">
+    <div class="col-auto">
+        {{ form.photo(class="from-control")}}
+    </div>
+    <div class="col-auto">
+        {{ form.submit(class="btn btn-success")}}
+
+    </div>
+</div>
+</form>
+{% if file_url %}
+<div class="mt-5">
+    <img src="{{file_url}}" width="400">
+</div>
+{% endif %}
+<div>
+   <h2 align="center">10 Most Common Colors in Your Image:</h2>
+
+
+
+    <table class="table">
+        <thead>
+        <tr><th>Color</th><th>Color RGB Code</th></tr>
+        </thead>
+        <tbody>
+        {% for color in u_col[::-1]: %}
+         <tr><td style="background-color:rgb{{(color[0],color[1],color[2])}}"></td><td>RGB Color{{color}}</td>
+        {%endfor%}
+        </tbody>
+	</table>
+
+
+</div>
+
+
+</body>
+</html>
